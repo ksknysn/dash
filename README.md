@@ -1,3 +1,5 @@
+i just implemented first 3 videos
+
 # Zoa
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.9.
