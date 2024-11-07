@@ -15,16 +15,17 @@ import { WidgetOptionsComponent } from "./widget-options/widget-options.componen
       [style.background-color]="data().backgroundColor ?? 'white'"
       [style.color]="data().color ?? 'inherit'"
     >
-
-      <h3 class="m-0">{{data().label}}</h3>
-      <button 
-        mat-icon-button 
-        class="settings-button" 
-        (click)="showOptions.set(true)"
-        [style.--mdc-icon-button-icon-color]="data().color ?? 'inherit'"
-      >
-        <mat-icon>settings</mat-icon>
-      </button>
+      <div>
+        <h3 class="m-0">{{data().label}}</h3>
+        <button 
+          mat-icon-button 
+          class="settings-button" 
+          (click)="showOptions.set(true)"
+          [style.--mdc-icon-button-icon-color]="data().color ?? 'inherit'"
+        >
+          <mat-icon>settings</mat-icon>
+        </button>
+      </div>
       <ng-container [ngComponentOutlet]="data().content"/>
 
       @if(showOptions()){
@@ -41,7 +42,7 @@ import { WidgetOptionsComponent } from "./widget-options/widget-options.componen
       position: relative;
       height: 100%;
       width: 100%;
-      padding: 32px;
+      padding: 8px 16px;
       box-sizing: border-box;
       border-radius: inherit;
       overflow: hidden;

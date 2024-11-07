@@ -53,7 +53,7 @@ export class DashboardService {
     label: 'Analytics',
     content: AnalyticsComponent,
     rows: 2,
-    columns: 2,
+    columns: 2
   }
 ]);
 
