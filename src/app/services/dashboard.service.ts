@@ -6,18 +6,21 @@ import { WatchTimeComponent } from '../pages/dashboard/widgets/watch-time.compon
 import { RevenueComponent } from '../pages/dashboard/widgets/revenue.component';
 import { JsonPipe } from '@angular/common';
 import { AnalyticsComponent } from '../pages/dashboard/widgets/analytics.component';
+import { PieComponent } from '../pages/dashboard/widgets/pie.component';
+import { BarComponent } from '../pages/dashboard/widgets/bar/bar.component';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DashboardService {
 
-  widgets = signal<Widget[]>([{
+  widgets = signal<Widget[]>([
+  {
     id: 1,
-    label: 'subscribers',
-    content: SubscribersComponent,
-    rows: 1,
-    columns: 1,
+    label: 'Bar Chart',
+    content: BarComponent,
+    rows: 2,
+    columns: 2,
     backgroundColor: '#003f5c',
     color: 'whitesmoke'
   },
@@ -54,7 +57,25 @@ export class DashboardService {
     content: AnalyticsComponent,
     rows: 2,
     columns: 2
-  }
+  },
+  {
+    id: 6,
+    label: 'Pie Chart',
+    content: PieComponent,
+    rows: 2,
+    columns: 2,
+    backgroundColor: '#003f5c',
+    color: 'whitesmoke'
+  },
+  {
+    id: 7,
+    label: 'Subscribers',
+    content: SubscribersComponent,
+    rows: 1,
+    columns: 1,
+    backgroundColor: '#003f5c',
+    color: 'whitesmoke'
+  },
 ]);
 
   addedWidgets = signal<Widget[]>([ ]);
@@ -137,4 +158,7 @@ export class DashboardService {
     });
     localStorage.setItem('dashboardWidgets', JSON.stringify(widgetsWithoutContent));
   });
+  
+
+  
 }
