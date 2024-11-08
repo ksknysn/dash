@@ -13,23 +13,28 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
     <button mat-stroked-button (click)="loadData('var1')">Variable 1</button>
     <button mat-stroked-button (click)="loadData('var2')">Variable 2</button>
     <div class="chart-container">
-      <div #containerPieChart></div>
+      <div #containerBarChart></div>
     </div>
   `,
   styles: `
   .chart-container {
       width: 100%;
-      height: calc(100% - 70px);
+      
+      height: 80%;
       top: 10px;
       bottom: 350px;
     }
+    #containerBarChart{
+      position: absolute;
+    }
+    
     `
 })
 export class BarComponent implements AfterViewInit {
 
 
 
-  @ViewChild('containerPieChart', { static: true }) element!: ElementRef;
+  @ViewChild('containerBarChart', { static: true }) element!: ElementRef;
   private host!: d3.Selection<HTMLElement, unknown, null, undefined>;
   private svg!: d3.Selection<SVGGElement, unknown, null, undefined>;
   private chartData: BarData[] = []; 
@@ -83,13 +88,14 @@ export class BarComponent implements AfterViewInit {
 
     // Get the width and height of the parent container dynamically
     const width = container.clientWidth;
-    const height = container.clientHeight - container.clientHeight * 0.2;
+    const height = container.clientHeight;
 
     this.svg = this.host.append('svg')
       .attr("preserveAspectRatio", "xMinYMin meet")
       .attr("viewBox", `0 0 ${width} ${height}`)
       .append('g')
       //.attr('transform', 'translate(' + width +  ',' + height +')');
+      .attr('transform', 'translate(0,0)');
   }
 
   
@@ -132,7 +138,7 @@ export class BarComponent implements AfterViewInit {
     const maxY = d3.max(this.chartData, d => d.value) || 0;
     console.log(this.chartData);
     console.log("maxy", maxY);
-    y.domain([0, maxY]);
+    y.domain([0, maxY+maxY*.2]);
     yAxis.transition().duration(1000).call(d3.axisLeft(y));
 
     // variable u: map data to existing bars
