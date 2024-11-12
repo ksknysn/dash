@@ -26,7 +26,7 @@ export class DashboardService {
   },
   {
     id: 2,
-    label: 'views',
+    label: 'Views',
     content: ViewsComponent,
     rows: 1,
     columns: 1,

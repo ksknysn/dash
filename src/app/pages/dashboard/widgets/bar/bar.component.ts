@@ -57,7 +57,6 @@ export class BarComponent implements AfterViewInit {
           this.buildBar(selectedVar);
           ;
   
-          console.log(this.chartData); // Log the chart data
         })
         .catch((error) => {
           console.error("Error loading CSV data:", error);
@@ -136,8 +135,6 @@ export class BarComponent implements AfterViewInit {
 
     // Add Y axis
     const maxY = d3.max(this.chartData, d => d.value) || 0;
-    console.log(this.chartData);
-    console.log("maxy", maxY);
     y.domain([0, maxY+maxY*.2]);
     yAxis.transition().duration(1000).call(d3.axisLeft(y));
 

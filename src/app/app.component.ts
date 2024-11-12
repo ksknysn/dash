@@ -5,16 +5,14 @@ import {MatSidenavModule} from '@angular/material/sidenav';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { CustomSidenavComponent } from "./components/custom-sidenav/custom-sidenav.component";
+import { HeaderComponent } from './components/header/header.component';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, MatButtonToggleModule, MatSidenavModule, MatIconModule, MatToolbarModule, CustomSidenavComponent],
+  imports: [RouterOutlet, MatButtonToggleModule, MatSidenavModule, MatIconModule, MatToolbarModule, CustomSidenavComponent, HeaderComponent],
   template: `
-  <mat-toolbar>
-    <button mat-icon-button (click)="collapsed.set(!collapsed())">
-      <mat-icon>menu</mat-icon>
-    </button>
-  </mat-toolbar>
+  <app-header [(collapsed)]="collapsed"/>
+  
   <mat-sidenav-container>
     <mat-sidenav opened mode="side" [style.width]="sidenavWidth()">
       <app-custom-sidenav [collapsed]="collapsed()"></app-custom-sidenav>

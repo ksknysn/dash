@@ -39,8 +39,6 @@ export type MenuItem = {
       opacity: 0;
     }
     .menu-item{
-      // border-left: 5px solid;
-      // border-left-color: rgba(0,0,0,0);
     }
     .selected-menu-item{
       color: blue;

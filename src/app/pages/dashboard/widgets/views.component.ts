@@ -8,7 +8,7 @@ import { MatIconModule } from '@angular/material/icon';
   template: `
     <div>
       <span>25,020 </span>
-      <mat-icon class="text-green">check_circle</mat-icon>
+      <mat-icon>check_circle</mat-icon>
     </div>
 <br>
     <div>

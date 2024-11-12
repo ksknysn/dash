@@ -16,7 +16,7 @@ import { PieData } from '../../../services/pie-data';
     .chart-container {
       width: 100%;
       height: 80%;
-    },
+    }
     #containerPieChart{
       position: absolute;
     }
@@ -97,7 +97,6 @@ export class PieComponent implements AfterViewInit {
     const width = container.clientWidth;
     const height = container.clientHeight - container.clientHeight * 0.2;
     const radius = Math.min(width, height) / 3;
-    console.log("radius", radius)
     const pie = d3.pie<PieData>().value(d => d.value);
     const arc = d3.arc<d3.PieArcDatum<any>>()
       .innerRadius(0)

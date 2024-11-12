@@ -1,9 +1,10 @@
-import { Component, input, signal } from '@angular/core';
+import { Component, inject, input, signal } from '@angular/core';
 import { Widget } from '../../models/dashboard';
 import { NgComponentOutlet } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { WidgetOptionsComponent } from "./widget-options/widget-options.component";
+import { DashboardService } from '../../services/dashboard.service';
 
 @Component({
   selector: 'app-widget',
@@ -12,7 +13,7 @@ import { WidgetOptionsComponent } from "./widget-options/widget-options.componen
   template: `
     <div 
       class="container mat-elevation-z3" 
-      [style.background-color]="data().backgroundColor ?? 'white'"
+      [style.background-color]="data().backgroundColor ?? 'var(--sys-surface-bright)'"
       [style.color]="data().color ?? 'inherit'"
     >
       <div>
@@ -42,7 +43,7 @@ import { WidgetOptionsComponent } from "./widget-options/widget-options.componen
       position: relative;
       height: 100%;
       width: 100%;
-      padding: 8px 16px;
+      padding: 32px;
       box-sizing: border-box;
       border-radius: inherit;
       overflow: hidden;
@@ -54,12 +55,15 @@ import { WidgetOptionsComponent } from "./widget-options/widget-options.componen
     }
   `,
   host: {
-    '[style.grid-area]': '"span " + (data().rows ?? 1) + "/ span " + (data().columns ?? 1)'
+    '[style.grid-area]': 
+      '"span " + (data().rows ?? 1) + "/ span " + (data().columns ?? 1)'
 
   }
 })
 export class WidgetComponent {
   data = input.required<Widget>();
+  
+  store = inject(DashboardService);
 
   showOptions = signal(false);
 }

@@ -59,8 +59,8 @@ import { DashboardService } from '../../../services/dashboard.service';
     :host{
       position: absolute;
       z-index: 2;
-      background: whitesmoke;
-      color: black;
+      background: var(--sys-surface-container);
+      color: var(--sys-inverse-surface);
       top: 0;
       left: 0;
       border-radius: inherit;
@@ -106,7 +106,7 @@ import { DashboardService } from '../../../services/dashboard.service';
       position: absolute;
       top: 0;
       left: 0;
-      // color: #cc0000;
+      color: var(--sys-error);
     }
   `
 })
