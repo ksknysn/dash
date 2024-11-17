@@ -15,7 +15,7 @@ import { PieData } from '../../../services/pie-data';
   styles: `
     .chart-container {
       width: 100%;
-      height: 80%;
+      height: 100%;
     }
     #containerPieChart{
       position: absolute;
@@ -48,6 +48,10 @@ export class PieComponent implements AfterViewInit {
 
   constructor(){}
 
+  public tikla(data: PieData): void {
+    alert(`Dilime tıklandı: ${data.label}, Değer: ${data.value}`);
+  }
+
   ngAfterViewInit(): void {
   //  const container = this.host.node()?.parentElement;
 
@@ -63,27 +67,29 @@ export class PieComponent implements AfterViewInit {
     this.host.html(''); // Clear previous pie chart content
   }
 
+
+
   private buildSVG(): void{
     // Select the container element (the parent element of the SVG)
     const container = this.host.node()?.parentElement;
 
     if (!container) {
-      console.error("Container element not found.");
       return; // Exit early if the container is not found
     }
 
     // Get the width and height of the parent container dynamically
     const width = container.clientWidth;
-    const height = container.clientHeight - container.clientHeight * 0.2;
+    const height = container.clientHeight;
+
 
   
     // console.log("Container dimensions:", { width: container.clientWidth, height: container.clientHeight });
 
     this.svg = this.host.append('svg')
-      .attr("preserveAspectRatio", "xMinYMin meet")
+      // .attr("preserveAspectRatio", "xMinYMin meet")
       .attr("viewBox", `0 0 ${width} ${height}`)
       .append('g')
-      .attr('transform', 'translate(' + width/2 +  ',' + height/3 +')');
+      .attr('transform', 'translate(' + width/2 +  ',' + height/2 +')');
 
   }
 
@@ -91,12 +97,16 @@ export class PieComponent implements AfterViewInit {
     const container = this.host.node()?.parentElement;
 
     if (!container) {
-      console.error("Container element not found.");
       return;
     }
     const width = container.clientWidth;
     const height = container.clientHeight - container.clientHeight * 0.2;
-    const radius = Math.min(width, height) / 3;
+    
+    let radius = Math.min(width, height) / 2;
+
+    // if(height<width){
+    //   radius = height/5;
+    // }
     const pie = d3.pie<PieData>().value(d => d.value);
     const arc = d3.arc<d3.PieArcDatum<any>>()
       .innerRadius(0)
@@ -113,13 +123,17 @@ export class PieComponent implements AfterViewInit {
 
     arcs.append('path')
       .attr('d', arc)
-      .attr('fill', (d, i) => color(String(i)));
+      .attr('fill', (d, i) => color(String(i)))
+      .on('click', (event, d) => this.tikla(d.data)); // Tıklama olayını bağlama
 
     arcs.append('text')
       .attr('transform', d => `translate(${arc.centroid(d)})`)
       .attr('dy', '0.35em')
       .style('text-anchor', 'middle')
       .text(d => d.data.label);
+
+
+  
 
 
   }

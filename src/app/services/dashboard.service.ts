@@ -3,11 +3,12 @@ import { SubscribersComponent } from '../pages/dashboard/widgets/subscribers.com
 import { Widget } from '../models/dashboard';
 import { ViewsComponent } from '../pages/dashboard/widgets/views.component';
 import { WatchTimeComponent } from '../pages/dashboard/widgets/watch-time.component';
-import { RevenueComponent } from '../pages/dashboard/widgets/revenue.component';
+import { MaleComponent } from '../pages/dashboard/widgets/male.component';
 import { JsonPipe } from '@angular/common';
 import { AnalyticsComponent } from '../pages/dashboard/widgets/analytics.component';
 import { PieComponent } from '../pages/dashboard/widgets/pie.component';
 import { BarComponent } from '../pages/dashboard/widgets/bar/bar.component';
+import { TotalComponent } from '../pages/dashboard/widgets/total.component';
 
 @Injectable({
   providedIn: 'root'
@@ -44,8 +45,8 @@ export class DashboardService {
   },
   {
     id: 4,
-    label: 'Revenue',
-    content: RevenueComponent,
+    label: 'Males',
+    content: MaleComponent,
     rows: 1,
     columns: 1,
     backgroundColor: '#003f5c',
@@ -76,6 +77,15 @@ export class DashboardService {
     backgroundColor: '#003f5c',
     color: 'whitesmoke'
   },
+  {
+    id: 8,
+    label: 'Total',
+    content: TotalComponent,
+    rows: 1,
+    columns: 1,
+    backgroundColor: '#003f5c',
+    color: 'whitesmoke'
+  },
 ]);
 
   addedWidgets = signal<Widget[]>([ ]);
@@ -91,14 +101,38 @@ export class DashboardService {
     this.addedWidgets.set([...this.addedWidgets(), {...w}]);
   }
 
+  updateWidgetPosition(sourceWidgetId: number, targetWidgetId: number){
+    const sourceIndex = this.addedWidgets().findIndex(
+      (w) => w.id === sourceWidgetId
+    );
+
+    if(sourceIndex === -1){
+      return;
+    }
+
+    const newWidgets = [...this.addedWidgets()];
+    const sourceWidget = newWidgets.splice(sourceIndex, 1)[0];
+
+    const targetIndex = newWidgets.findIndex((w) => w.id === targetWidgetId);
+    if(targetIndex === -1){
+      return;
+    }
+
+    const instertAt = targetIndex === sourceIndex ? targetIndex + 1 : targetIndex;
+
+    newWidgets.splice(instertAt, 0, sourceWidget);
+    this.addedWidgets.set(newWidgets);
+
+  }
+
   updateWidget(id: number, widget: Partial<Widget>){
     const index = this.addedWidgets().findIndex(w => w.id == id);
     if(index !== -1){
       const newWidgets = [...this.addedWidgets()];
       newWidgets[index] = { ...newWidgets[index], ...widget}
-      console.log(newWidgets)
+      
       this.addedWidgets.set(newWidgets);
-      console.log(newWidgets)
+      
 
 
     }

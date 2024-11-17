@@ -1,37 +1,45 @@
 import { Component, inject, input, signal } from '@angular/core';
 import { Widget } from '../../models/dashboard';
-import { NgComponentOutlet } from '@angular/common';
+import { NgComponentOutlet, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { WidgetOptionsComponent } from "./widget-options/widget-options.component";
 import { DashboardService } from '../../services/dashboard.service';
+import { CdkDrag, CdkDragPlaceholder, CdkDragPreview, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
+import { WidgetHeaderComponent } from "./widget-header/widget-header.component";
 
 @Component({
   selector: 'app-widget',
   standalone: true,
-  imports: [NgComponentOutlet, MatButtonModule, MatIcon, WidgetOptionsComponent],
-  template: `
+  imports: [NgComponentOutlet, MatButtonModule, MatIcon, WidgetOptionsComponent, 
+    CdkDrag, CdkDragPlaceholder, WidgetHeaderComponent, CdkDragPreview, NgIf],
+    template: `
+    <!--[style.background-color]="data().backgroundColor ?? 'var(--sys-surface-bright)'"-->
     <div 
-      class="container mat-elevation-z3" 
-      [style.background-color]="data().backgroundColor ?? 'var(--sys-surface-bright)'"
-      [style.color]="data().color ?? 'inherit'"
-    >
-      <div>
-        <h3 class="m-0">{{data().label}}</h3>
-        <button 
-          mat-icon-button 
-          class="settings-button" 
-          (click)="showOptions.set(true)"
-          [style.--mdc-icon-button-icon-color]="data().color ?? 'inherit'"
-        >
-          <mat-icon>settings</mat-icon>
-        </button>
-      </div>
-      <ng-container [ngComponentOutlet]="data().content"/>
+      class="container mat-elevation-z3"  
+      [style.background-color]="'var(--sys-surface-bright)'"
+
+      [style.color]="'inherit'"
+      cdkDrag    
+      cdkDragPreviewContainer="parent"
+      >
+      <!-- Widget Header -->
+      <app-widget-header [data]="data()" [(showOptions)]="showOptions" />
+
+      <!-- Widget Content -->
+      <ng-container *ngIf="!showOptions(); else optionsContent">
+        <ng-container [ngComponentOutlet]="data().content"></ng-container>
+      </ng-container>
+
+      <!-- Widget Options -->
+      <ng-template #optionsContent>
+        <app-widget-options [data]="data()" [(showOptions)]="showOptions" />
+      </ng-template>
 
       @if(showOptions()){
-        <app-widget-options [data]="data()" [(showOptions)]="showOptions"/>
+        <app-widget-options [data]="data()" [(showOptions)]="showOptions" />
       }
+      <div *cdkDragPlaceholder></div>
     </div>
   `,
   styles: `
@@ -47,11 +55,6 @@ import { DashboardService } from '../../services/dashboard.service';
       box-sizing: border-box;
       border-radius: inherit;
       overflow: hidden;
-    }
-    .settings-button{
-      position: absolute;
-      top: 20px;
-      right: 20px;
     }
   `,
   host: {

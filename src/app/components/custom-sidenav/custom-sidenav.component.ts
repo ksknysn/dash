@@ -41,7 +41,7 @@ export type MenuItem = {
     .menu-item{
     }
     .selected-menu-item{
-      color: blue;
+      /*color: blue;*/
       
     }
     `]
@@ -56,7 +56,7 @@ export class CustomSidenavComponent {
   menuItems = signal<MenuItem[]>([
     {
       icon: 'dashboard',
-      label: 'Dashboard',
+      label: 'Human Resources',
       route: 'dashboard'
     },{
       icon: 'video_library',

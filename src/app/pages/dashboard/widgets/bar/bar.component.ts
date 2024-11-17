@@ -10,8 +10,8 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
   imports: [MatButton],
   template: `
   <!-- Add 2 buttons -->
-    <button mat-stroked-button (click)="loadData('var1')">Variable 1</button>
-    <button mat-stroked-button (click)="loadData('var2')">Variable 2</button>
+    <button mat-stroked-button (click)="loadData('var1')">Male</button>
+    <button mat-stroked-button (click)="loadData('var2')">Female</button>
     <div class="chart-container">
       <div #containerBarChart></div>
     </div>
@@ -20,9 +20,8 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
   .chart-container {
       width: 100%;
       
-      height: 80%;
+      height: 100%;
       top: 10px;
-      bottom: 350px;
     }
     #containerBarChart{
       position: absolute;
@@ -97,6 +96,9 @@ export class BarComponent implements AfterViewInit {
       .attr('transform', 'translate(0,0)');
   }
 
+  private handleBarClick(data: BarData): void {
+    alert(`Group: ${data.group}, Value: ${data.value}`);
+  }
   
 
   buildBar(v: string): void{
@@ -145,6 +147,7 @@ export class BarComponent implements AfterViewInit {
 
       // update bars
     u.join("rect")
+    .on("click", (event, d) => this.handleBarClick(d as BarData)) // Add click event
     .transition()
     .duration(1000)
       .attr("x", d => {

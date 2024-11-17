@@ -4,7 +4,7 @@
 @include mat.core();
 
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif;}
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; background-color: var(--sys-surface);}
 
 h2,h3,h4{
     font-weight: normal;
@@ -65,6 +65,19 @@ h2,h3,h4{
     padding-left: 8px;
 }
 
+.cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                  0 3px 14px 2px rgba(0, 0, 0, 0.12);
+}
+
+.cdk-drag-animating {
+transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+
 $custom-theme: mat.define-theme(
     (
         color: (
@@ -117,7 +130,7 @@ html {
     --sys-tertiary-fixed-dim: rgb(175 201 231);
     --sys-on-tertiary-fixed-variant: rgb(48 73 98);
     --sys-surface-dim: rgb(213 219 218);
-    --sys-surface-bright: rgb(244 251 249);
+    --sys-surface-bright: #e2e3e7;
     --sys-surface-container-lowest: rgb(255 255 255);
     --sys-surface-container-low: rgb(239 245 243);
     --sys-surface-container: rgb(233 239 237);
@@ -127,7 +140,6 @@ html {
     
 
 .dark {
-
     --sys-primary: rgb(129 213 205);
     --sys-surface-tint: rgb(129 213 205);
     --sys-on-primary: rgb(0 55 52);

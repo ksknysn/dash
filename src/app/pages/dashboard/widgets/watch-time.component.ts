@@ -6,11 +6,10 @@ import { MatIconRegistry, MatIconModule } from '@angular/material/icon';
   standalone: true,
   imports: [MatIconModule],
   template: `
-        <div>
-          <span>25,020 </span>
-          <mat-icon>check_circle</mat-icon>
+    <div class="mb-8">
+        <span>25,020 </span>
+        <mat-icon>check_circle</mat-icon>
     </div>
-    <br>
     <div>
       <span class="text-green"> +502</span> in the last 28 days
     </div>

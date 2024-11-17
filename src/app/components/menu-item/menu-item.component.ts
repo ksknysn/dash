@@ -13,7 +13,6 @@ import { MenuItem } from '../custom-sidenav/custom-sidenav.component';
           <a mat-list-item class="menu-item" [routerLink]="item().route" routerLinkActive="selected-menu-item" #rla="routerLinkActive" [activated]="rla.isActive">
           <mat-icon matListItemIcon>{{item().icon}}</mat-icon>
           @if(!collapsed()){
-
             <span matListItemTitle>{{item().label}}</span>
           }
         </a>

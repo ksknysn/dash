@@ -2,12 +2,12 @@ import { Component } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-views',
+  selector: 'app-total',
   standalone: true,
   imports: [MatIconModule],
   template: `
     <div class="mb-8">
-      <span>25,020 </span>
+      <span>25,020</span>
       <mat-icon>check_circle</mat-icon>
     </div>
     <div>
@@ -16,6 +16,6 @@ import { MatIconModule } from '@angular/material/icon';
   `,
   styles: ``
 })
-export class ViewsComponent {
+export class TotalComponent {
 
 }
