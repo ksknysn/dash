@@ -2,13 +2,14 @@
 /* You can add global styles to this file, and also import other style files */
 
 @use "@angular/material" as mat;
+@use "./assets/themes.scss" as thme;
 @include mat.core();
 
 
 // Define a dark theme
 $redtheme: mat.define-theme((
   color: (
-    theme-type: dark,
+    theme-type: light,
     primary: mat.$red-palette,
   ),
 ));
@@ -29,10 +30,28 @@ body{
 }
 .violet{
     @include mat.all-component-themes($lightviolettheme);
+    @include mat.button-theme($lightviolettheme);
+    @include mat.icon-button-theme($lightviolettheme);
+
 }
+.containerViolet{
+    color:mat.get-theme-color($lightviolettheme, primary, 10);
+    background-color:mat.get-theme-color($lightviolettheme, primary, 95);
+    @include mat.button-theme($lightviolettheme);
+    @include mat.icon-button-theme($lightviolettheme);
+
+}
+
 
 .red{
     @include mat.all-component-themes($redtheme);
+}
+
+.containerRed{
+    color:mat.get-theme-color($redtheme, primary, 10);
+    background-color: mat.get-theme-color($redtheme, primary, 95);
+    @include mat.button-theme($redtheme);
+    @include mat.icon-button-theme($redtheme);
 }
 
 
@@ -107,5 +126,5 @@ h2,h3,h4{
 }
 
 .cdk-drag-animating {
-transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
 }

@@ -22,6 +22,7 @@ import { NgComponentOutlet } from '@angular/common';
     display:grid;
     grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     grid-auto-rows: 150px;
+    
     gap: 16px;
     max-height: 100%; /*taşmayı engelle*/
     overflow: hidden; /* scroll bar'ı gizle */

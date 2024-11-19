@@ -16,10 +16,7 @@ import { WidgetHeaderComponent } from "./widget-header/widget-header.component";
     template: `
     <!--[style.background-color]="data().backgroundColor ?? 'var(--sys-surface-bright)'"-->
     <div 
-      class="container mat-elevation-z3"  
-      [style.background-color]="'var(--sys-surface-bright)'"
-
-      [style.color]="'inherit'"
+      class="container mat-elevation-z3" 
       cdkDrag    
       cdkDragPreviewContainer="parent"
       >

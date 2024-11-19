@@ -15,7 +15,7 @@ import { MatButtonModule } from '@angular/material/button';
       >
         <h3 class="m-0">{{ data().label}}</h3>
         <button mat-icon-button (click)="showOptions.set(true)">
-          <mat-icon [style.color]="'var(--sys-secondary)'">settings</mat-icon>
+          <mat-icon>settings</mat-icon>
         </button>
       </div>
   `,

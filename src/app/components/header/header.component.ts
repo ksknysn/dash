@@ -45,13 +45,24 @@ export class HeaderComponent {
    *
    */
   constructor(private renderer: Renderer2, private overlayContainer: OverlayContainer) {
-    console.log(this.overlayContainer);
+    
     //this.renderer.addClass(document.body, "redtheme");
   }
   currentTheme: ThemePalette = 'primary';
   changeTheme2(){
     
     document.documentElement.classList.remove('red');
+    let allDivs = document.querySelectorAll('app-widget');
+
+      // Remove a class from all divs
+      allDivs.forEach(div => {
+        div.classList.remove('containerRed');
+      });
+
+      // Add a class to all divs
+      allDivs.forEach(div => {
+        div.classList.add('containerViolet');
+      });
 
     document.documentElement.classList.add('violet');
   }
@@ -65,8 +76,20 @@ export class HeaderComponent {
     //this.renderer.addClass(document.body, "redtheme");
     this.currentTheme = newTheme;
     document.documentElement.classList.remove('violet');
-    
+    let allDivs = document.querySelectorAll('app-widget');
+    // Remove a class from all divs
+    allDivs.forEach(div => {
+      div.classList.remove('containerViolet');
+    });
+
+    // Add a class to all divs
+    allDivs.forEach(div => {
+      div.classList.add('containerRed');
+    });
+
+
     document.documentElement.classList.add('red');
+    document
     console.log(html);
   }
   collapsed = model.required<boolean>();
