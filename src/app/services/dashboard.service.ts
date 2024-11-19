@@ -4,7 +4,6 @@ import { Widget } from '../models/dashboard';
 import { ViewsComponent } from '../pages/dashboard/widgets/views.component';
 import { WatchTimeComponent } from '../pages/dashboard/widgets/watch-time.component';
 import { MaleComponent } from '../pages/dashboard/widgets/male.component';
-import { JsonPipe } from '@angular/common';
 import { AnalyticsComponent } from '../pages/dashboard/widgets/analytics.component';
 import { PieComponent } from '../pages/dashboard/widgets/pie.component';
 import { BarComponent } from '../pages/dashboard/widgets/bar/bar.component';
@@ -22,7 +21,7 @@ export class DashboardService {
     content: BarComponent,
     rows: 2,
     columns: 2,
-    backgroundColor: '#003f5c',
+    backgroundColor: '#00ffff',
     color: 'whitesmoke'
   },
   {
@@ -49,8 +48,8 @@ export class DashboardService {
     content: MaleComponent,
     rows: 1,
     columns: 1,
-    backgroundColor: '#003f5c',
-    color: 'whitesmoke'
+    backgroundColor: 'var(--sys-error)',
+    color: 'var(--sys-error)'
   },
   {
     id: 5,

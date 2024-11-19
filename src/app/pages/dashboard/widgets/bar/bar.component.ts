@@ -1,16 +1,18 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import * as d3 from 'd3'
 import { BarData } from '../../../../services/bar-data';
-import { MatButton, MatButtonModule } from '@angular/material/button';
+import {MatButtonModule} from '@angular/material/button';
 
 
 @Component({
   selector: 'app-bar',
   standalone: true,
-  imports: [MatButton],
+  imports: [MatButtonModule],
   template: `
   <!-- Add 2 buttons -->
-    <button mat-stroked-button (click)="loadData('var1')">Male</button>
+    <button mat-stroked-button color="accent" (click)="loadData('var1')">Male</button>
+    <button (click)="loadData('var1')" mat-raised-button color="accent">Male</button>
+
     <button mat-stroked-button (click)="loadData('var2')">Female</button>
     <div class="chart-container">
       <div #containerBarChart></div>
@@ -19,7 +21,6 @@ import { MatButton, MatButtonModule } from '@angular/material/button';
   styles: `
   .chart-container {
       width: 100%;
-      
       height: 100%;
       top: 10px;
     }
