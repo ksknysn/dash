@@ -1,4 +1,4 @@
-import { Component, effect, HostBinding, model, Renderer2, signal } from '@angular/core';
+import { Component, computed, effect, HostBinding, model, Renderer2, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbar, MatToolbarModule } from '@angular/material/toolbar';
@@ -17,9 +17,15 @@ import { OverlayContainer } from '@angular/cdk/overlay';
     <button mat-icon-button (click)="collapsed.set(!collapsed())">
       <mat-icon>menu</mat-icon>
     </button>
-    <button mat-icon-button (click)="changeTheme('accent')">red theme</button>
-    <button mat-icon-button (click)="changeTheme2()">violet theme</button>
-
+    <button mat-icon-button (click)="toggleTheme('blue')">
+      Blue
+      <mat-icon>radio_button_unchecked</mat-icon>
+    </button>
+    <button mat-icon-button (click)="toggleTheme('green')">
+      Green
+      <mat-icon>radio_button_unchecked</mat-icon>
+    </button>
+    
     <button mat-icon-button (click)="darkMode.set(!darkMode())">
       @if(darkMode()){
         <mat-icon>light_mode</mat-icon>
@@ -35,7 +41,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
       position: relative;
       z-index: 5;
       justify-content: space-between;
-      /* --mat-toolbar-container-background-color: var(--clr-primary-10);*/
+      --mat-toolbar-container-background-color: var(--sys-surface-container-low);
     }
   `
 })
@@ -44,59 +50,60 @@ export class HeaderComponent {
   /**
    *
    */
-  constructor(private renderer: Renderer2, private overlayContainer: OverlayContainer) {
+  constructor(private renderer: Renderer2) {
     
     //this.renderer.addClass(document.body, "redtheme");
   }
-  currentTheme: ThemePalette = 'primary';
-  changeTheme2(){
-    
-    document.documentElement.classList.remove('red');
-    let allDivs = document.querySelectorAll('app-widget');
+  
 
-      // Remove a class from all divs
-      allDivs.forEach(div => {
-        div.classList.remove('containerRed');
-      });
+  // Aktif tema sinyali
+  activeTheme = signal<string | null>(null);
 
-      // Add a class to all divs
-      allDivs.forEach(div => {
-        div.classList.add('containerViolet');
-      });
 
-    document.documentElement.classList.add('violet');
+  toggleTheme(theme: string){
+    const currentTheme = this.activeTheme();
+    const body = document.body;
+
+    // Eski temayı kaldır
+    if (currentTheme) {
+      this.renderer.removeClass(body, currentTheme);
+    }
+
+    // Yeni temayı uygula (aynı temayı tekrar seçerse kaldırır)
+    if (currentTheme !== theme) {
+      if(this.darkMode())
+      {
+        this.renderer.addClass(body, theme+'dark');
+        this.activeTheme.set(theme+'dark');
+      }
+      else{
+        this.renderer.addClass(body, theme+'light');
+        this.activeTheme.set(theme+'light');
+      }
+    } else {
+      this.activeTheme.set(null);
+    }
+
   }
 
-  changeTheme(newTheme: ThemePalette){
-    // document.setProperty('--user-color', "#acacea");
-    // console.log(document.documentElement.classList);
-    // document.documentElement.classList.add('lighttheme');
-    console.log(this.renderer);
-    //this.renderer.removeClass(document.body, "mat-typography");
-    //this.renderer.addClass(document.body, "redtheme");
-    this.currentTheme = newTheme;
-    document.documentElement.classList.remove('violet');
-    let allDivs = document.querySelectorAll('app-widget');
-    // Remove a class from all divs
-    allDivs.forEach(div => {
-      div.classList.remove('containerViolet');
-    });
-
-    // Add a class to all divs
-    allDivs.forEach(div => {
-      div.classList.add('containerRed');
-    });
 
 
-    document.documentElement.classList.add('red');
-    document
-    console.log(html);
-  }
+
   collapsed = model.required<boolean>();
 
-  darkMode = signal(false);
+  
+  blueTheme = signal(false);
+  setBlueTheme = effect(() => {
+    document.documentElement.classList.toggle('bluelight', this.blueTheme());
+  })
+  
+  greenTheme = signal(false);
+  setGreenTheme = effect(() => {
+    document.documentElement.classList.toggle('greenlight', this.greenTheme());
+  })
 
+  darkMode = signal(false);
   setDarkMode = effect(()  => {
-    document.documentElement.classList.toggle('dark', this.darkMode());
+    document.documentElement.classList.toggle('bluedark', this.darkMode());
   })
 }

@@ -15,8 +15,9 @@ import { WidgetHeaderComponent } from "./widget-header/widget-header.component";
     CdkDrag, CdkDragPlaceholder, WidgetHeaderComponent, CdkDragPreview, NgIf],
     template: `
     <!--[style.background-color]="data().backgroundColor ?? 'var(--sys-surface-bright)'"-->
-    <div 
+    <div mat-card
       class="container mat-elevation-z3" 
+      [style.background-color]="data().backgroundColor ?? 'var(--sys-primary-container)'"
       cdkDrag    
       cdkDragPreviewContainer="parent"
       >

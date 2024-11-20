@@ -12,7 +12,9 @@ import { TotalComponent } from '../pages/dashboard/widgets/total.component';
 @Injectable({
   providedIn: 'root'
 })
+
 export class DashboardService {
+  
 
   widgets = signal<Widget[]>([
   {
@@ -21,8 +23,6 @@ export class DashboardService {
     content: BarComponent,
     rows: 2,
     columns: 2,
-    backgroundColor: '#00ffff',
-    color: 'whitesmoke'
   },
   {
     id: 2,
@@ -30,8 +30,6 @@ export class DashboardService {
     content: ViewsComponent,
     rows: 1,
     columns: 1,
-    backgroundColor: '#003f5c',
-    color: 'whitesmoke'
   },
   {
     id: 3,
@@ -39,8 +37,6 @@ export class DashboardService {
     content: WatchTimeComponent,
     rows: 1,
     columns: 1,
-    backgroundColor: '#003f5c',
-    color: 'whitesmoke'
   },
   {
     id: 4,
@@ -48,8 +44,6 @@ export class DashboardService {
     content: MaleComponent,
     rows: 1,
     columns: 1,
-    backgroundColor: 'var(--sys-error)',
-    color: 'var(--sys-error)'
   },
   {
     id: 5,
@@ -64,8 +58,6 @@ export class DashboardService {
     content: PieComponent,
     rows: 2,
     columns: 2,
-    backgroundColor: '#003f5c',
-    color: 'whitesmoke'
   },
   {
     id: 7,
@@ -73,8 +65,6 @@ export class DashboardService {
     content: SubscribersComponent,
     rows: 1,
     columns: 1,
-    backgroundColor: '#003f5c',
-    color: 'whitesmoke'
   },
   {
     id: 8,
@@ -82,8 +72,6 @@ export class DashboardService {
     content: TotalComponent,
     rows: 1,
     columns: 1,
-    backgroundColor: '#003f5c',
-    color: 'whitesmoke'
   },
 ]);
 

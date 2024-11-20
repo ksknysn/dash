@@ -63,7 +63,6 @@ import { DashboardService } from '../../../services/dashboard.service';
       color: var(--sys-inverse-surface);
       top: 0;
       left: 0;
-      border-radius: inherit;
       width: 100%;
       height: 100%;
 
@@ -86,6 +85,7 @@ import { DashboardService } from '../../../services/dashboard.service';
       position: absolute;
       top: 0;
       right: 0;
+      color: var(--sys-on-surface);
     }
 
     .move-forward-button{

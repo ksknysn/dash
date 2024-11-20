@@ -50,7 +50,7 @@ import { HeaderComponent } from './components/header/header.component';
     mat-drawer {
       flex-shrink: 0; /* Drawer'ın daralmamasını sağlar */
       width: 250px;
-      height: calc(100vh - 48px);
+      height: calc(100vh - 64px);
       display: flex;
     }
 

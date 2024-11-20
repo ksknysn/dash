@@ -10,7 +10,14 @@ import { MenuItem } from '../custom-sidenav/custom-sidenav.component';
   standalone: true,
   imports: [MatListModule, RouterModule, MatIcon],
   template: `
-          <a mat-list-item class="menu-item" [routerLink]="item().route" routerLinkActive="selected-menu-item" #rla="routerLinkActive" [activated]="rla.isActive">
+          <a 
+          mat-list-item 
+          class="menu-item" 
+          [style.--mat-list-list-item-loading-icon-color]
+          [routerLink]="item().route" 
+          routerLinkActive="selected-menu-item" 
+          #rla="routerLinkActive" 
+          [activated]="rla.isActive">
           <mat-icon matListItemIcon>{{item().icon}}</mat-icon>
           @if(!collapsed()){
             <span matListItemTitle>{{item().label}}</span>
@@ -18,9 +25,25 @@ import { MenuItem } from '../custom-sidenav/custom-sidenav.component';
         </a>
   `,
   styles: [`
+    
+    @use '@angular/material' as mat;
+
     :host *{
       transition: all 500ms ease-in-out;
     }
+    
+    .selected-menu-item{
+      indicator-shape: 0px;
+      color: blue;
+
+      @include mat.list-overrides((
+        matListItemIcon: var(--sys-on-primary);
+
+      ));
+
+    }
+    
+    
     `]
 })
 export class MenuItemComponent {
