@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, signal, ViewChild } from '@angular/core';
 import { BarChartService } from '../../../../services/bar/bar-chart.service';
 import { BarData } from '../../../../services/bar/bar-data';
 import * as d3 from 'd3';
@@ -40,6 +40,7 @@ export class GendersByDeparmentComponent implements AfterViewInit {
   @ViewChild('containerBarChart', { static: true }) element!: ElementRef;
   private host!: d3.Selection<HTMLElement, unknown, null, undefined>;
   //private svg!: d3.Selection<SVGGElement, unknown, null, undefined>;
+  chartType = signal('bar');
   chartData: BarData[] = [];
   
   changeChart(chartType: string){
@@ -64,7 +65,7 @@ export class GendersByDeparmentComponent implements AfterViewInit {
         }));
 
 
-        this.drawChart('pie');
+        this.drawChart(this.chartType());
 
 
       })
@@ -73,16 +74,17 @@ export class GendersByDeparmentComponent implements AfterViewInit {
       });
   }
 
-  drawChart(chartType: string){
+  drawChart(newchartType: string){
     this.host.html('');
-    if(chartType == 'pie'){
+    this.chartType.set(newchartType);
+    if(newchartType == 'pie'){
       this.pieChartService.createPieChart(
         this.host,
         d3.select(this.element.nativeElement),
         this.chartData
       );
     }
-    else if(chartType == 'bar'){
+    else if(newchartType == 'bar'){
       this.barChartService.createChart(
         d3.select(this.element.nativeElement),
         this.chartData,

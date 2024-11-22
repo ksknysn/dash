@@ -20,7 +20,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
     <span class="spacer"></span> <!-- Aradaki boşluğu sağlamak için -->
 
     <!-- Green Theme Button -->
-
+    {{qty}}
     <svg class="circleBlue" height="30" width="30" (click)="toggleTheme('blue')">
         <circle cx="15" cy="15" r="10" fill="blue" />
     </svg>
@@ -65,6 +65,8 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 })
 export class HeaderComponent {
   
+  qty = effect(() => console.log(this.activeTheme()));
+  
   /**
    *
    */
@@ -73,8 +75,11 @@ export class HeaderComponent {
     //this.renderer.addClass(document.body, "redtheme");
   }
   
+  
   // Aktif tema sinyali
   activeTheme = signal<string | null>(null);
+
+  
   
   //change light to dark or dark to light mode
   changeMode(){
@@ -91,10 +96,7 @@ export class HeaderComponent {
         this.renderer.removeClass(body, currentTheme+'dark');
         this.renderer.addClass(body, currentTheme+'light');
       }
-
     }
-    
-
   }
 
   toggleTheme(theme: string){
@@ -121,7 +123,6 @@ export class HeaderComponent {
         this.activeTheme.set(theme);
       }
       else{
-        console.log("buradayım");
         this.renderer.addClass(body, theme+'light');
         this.activeTheme.set(theme);
       }
@@ -130,12 +131,8 @@ export class HeaderComponent {
     }
 
   }
-
-
-
   
   collapsed = model.required<boolean>();
-
   
   blueTheme = signal(false);
   setBlueTheme = effect(() => {

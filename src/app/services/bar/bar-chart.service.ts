@@ -28,7 +28,7 @@ export class BarChartService {
     // SVG ve grup elementi oluşturma
     this.svg = host.append('svg')
       .attr('preserveAspectRatio', 'xMinYMin meet')
-      .attr('viewBox', `0 0 ${width} ${height}`)
+      .attr('viewBox', `-20 20 ${width} ${height}`)
       .append('g')
       .attr('transform', 'translate(0,0)');
 
