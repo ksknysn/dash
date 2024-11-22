@@ -50,7 +50,8 @@ export class BarChartService {
     // Barlar
     const u = this.svg.selectAll('rect').data(data);
 
-    u.join('rect')
+    u.enter()
+      .append('rect')
       .on('click', (event, d) => onBarClick(d as BarData)) // Click olayını işleme
       .transition()
       .duration(100)

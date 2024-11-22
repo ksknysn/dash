@@ -82,7 +82,7 @@ export class DashboardService {
   },
   {
     id: 9,
-    label: 'Personel Test',
+    label: 'Personel Counts',
     content: PersonelTestComponent,
     rows: 2,
     columns: 2,
