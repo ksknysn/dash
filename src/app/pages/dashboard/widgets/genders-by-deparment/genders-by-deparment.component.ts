@@ -17,8 +17,11 @@ import { MatIconModule } from '@angular/material/icon';
     <div class="chart-container">
       <div #containerBarChart></div>
     </div>
-    <span class="material-symbols-outlined mb-8" (click)="changeChart('bar')">
+    <span class="material-symbols-outlined mb-8" (click)="drawChart('bar')">
     <mat-icon>bar_chart</mat-icon>
+    </span>
+    <span class="material-symbols-outlined mb-8" (click)="drawChart('pie')">
+    <mat-icon>pie_chart</mat-icon>
     </span>
   `,
   styles: [
@@ -37,18 +40,16 @@ export class GendersByDeparmentComponent implements AfterViewInit {
   @ViewChild('containerBarChart', { static: true }) element!: ElementRef;
   private host!: d3.Selection<HTMLElement, unknown, null, undefined>;
   //private svg!: d3.Selection<SVGGElement, unknown, null, undefined>;
-
+  chartData: BarData[] = [];
+  
   changeChart(chartType: string){
     alert(chartType);
+
   }
   constructor(
     private barChartService: BarChartService,
     private pieChartService: PieChartService
   ) {}
-
-  async ngOnInit() {
-    //await this.loadData('var1');
-  }
 
   async loadData(selectedVar: string) {
     this.clearPie();
@@ -56,28 +57,38 @@ export class GendersByDeparmentComponent implements AfterViewInit {
       'https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/barplot_change_data.csv'
     )
       .then(data => {
-        const chartData = data.map(d => ({
+        
+        this.chartData = data.map(d => ({
           label: d['group'],
           value: +d[selectedVar],
         }));
 
-        // this.barChartService.createChart(
-        //   d3.select(this.element.nativeElement),
-        //   chartData,
-        //   this.handleBarClick
-        // );
 
-        this.pieChartService.createPieChart(
-          this.host,
-          d3.select(this.element.nativeElement),
-          chartData
-        );
+        this.drawChart('pie');
 
 
       })
       .catch(error => {
         console.error('Error loading CSV data:', error);
       });
+  }
+
+  drawChart(chartType: string){
+    this.host.html('');
+    if(chartType == 'pie'){
+      this.pieChartService.createPieChart(
+        this.host,
+        d3.select(this.element.nativeElement),
+        this.chartData
+      );
+    }
+    else if(chartType == 'bar'){
+      this.barChartService.createChart(
+        d3.select(this.element.nativeElement),
+        this.chartData,
+        this.handleBarClick
+      );
+    }
   }
 
   private handleBarClick(data: BarData): void {

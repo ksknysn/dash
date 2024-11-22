@@ -10,8 +10,9 @@ import { BarComponent } from '../pages/dashboard/widgets/bar/bar.component';
 import { TotalComponent } from '../pages/dashboard/widgets/total.component';
 import { PersonelTestComponent } from '../pages/dashboard/widgets/personel-test/personel-test.component';
 
-import { Widget } from '../models/dashboard';
+
 import { GendersByDeparmentComponent } from '../pages/dashboard/widgets/genders-by-deparment/genders-by-deparment.component';
+import { Widget } from '../models/dashboard';
 
 
 

@@ -132,12 +132,12 @@ export class BarComponent implements AfterViewInit {
 
 
     x.domain(this.chartData.map(d => d.label));
-    xAxis.transition().duration(1000).call(d3.axisBottom(x));
+    xAxis.transition().duration(100).call(d3.axisBottom(x));
 
     // Add Y axis
     const maxY = d3.max(this.chartData, d => d.value) || 0;
     y.domain([0, maxY+maxY*.2]);
-    yAxis.transition().duration(1000).call(d3.axisLeft(y));
+    yAxis.transition().duration(100).call(d3.axisLeft(y));
 
     // variable u: map data to existing bars
     const u = this.svg.selectAll("rect")
@@ -148,7 +148,7 @@ export class BarComponent implements AfterViewInit {
     u.join("rect")
     .on("click", (event, d) => this.handleBarClick(d as BarData)) // Add click event
     .transition()
-    .duration(1000)
+    .duration(100)
       .attr("x", d => {
         const xValue = x(d.label);
         return xValue !== undefined ? xValue : 0; // Provide a fallback value if undefined

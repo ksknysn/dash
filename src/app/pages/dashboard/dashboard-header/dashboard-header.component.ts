@@ -33,9 +33,4 @@ export class DashboardHeaderComponent {
 
   dashboard = viewChild.required<ElementRef>('dashboard');
 
-  // ngOnInit(){
-  //   wrapGrid(this.dashboard().nativeElement, {
-  //     duration: 300
-  //   });
-  // }
 }
