@@ -10,15 +10,15 @@ import { MatButtonModule } from '@angular/material/button';
   standalone: true,
   imports: [MatIcon, MatButtonModule, MatMenuModule],
   template: `
-       <button mat-raised-button [mat-menu-trigger-for]="widgetMenu">
+       <button mat-raised-button [mat-menu-trigger-for]="widgetMenu" style="color: var(--sys-primary)">
          <mat-icon>add_circle</mat-icon>
          Add widget
        </button>
        <mat-menu #widgetMenu="matMenu">
        @for (widget of store.widgetsToAdd(); track widget.id) {
-         <button mat-menu-item (click)="store.addWidget(widget)">{{widget.label}}</button>
+         <button mat-menu-item style="z-index: 5; background-color: var(--sys-on-surface); color: var(--sys-surface-variant);" (click)="store.addWidget(widget)">{{widget.label}}</button>
        }@empty{
-        <button mat-menu-item>No widgets to add</button>
+        <button mat-menu-item style="z-index: 5; background-color: var(--sys-on-surface); color: var(--sys-surface-variant);">No widgets to add</button>
 
        }
        </mat-menu>

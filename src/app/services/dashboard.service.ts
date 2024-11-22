@@ -1,13 +1,19 @@
 import { computed, effect, Injectable, signal } from '@angular/core';
 import { SubscribersComponent } from '../pages/dashboard/widgets/subscribers.component';
-import { Widget } from '../models/dashboard';
+
 import { ViewsComponent } from '../pages/dashboard/widgets/views.component';
 import { WatchTimeComponent } from '../pages/dashboard/widgets/watch-time.component';
 import { MaleComponent } from '../pages/dashboard/widgets/male.component';
 import { AnalyticsComponent } from '../pages/dashboard/widgets/analytics.component';
-import { PieComponent } from '../pages/dashboard/widgets/pie.component';
+import { PersonelDepartmentsComponent } from '../pages/dashboard/widgets/personel-departments.component';
 import { BarComponent } from '../pages/dashboard/widgets/bar/bar.component';
 import { TotalComponent } from '../pages/dashboard/widgets/total.component';
+import { PersonelTestComponent } from '../pages/dashboard/widgets/personel-test/personel-test.component';
+
+import { Widget } from '../models/dashboard';
+import { GendersByDeparmentComponent } from '../pages/dashboard/widgets/genders-by-deparment/genders-by-deparment.component';
+
+
 
 @Injectable({
   providedIn: 'root'
@@ -19,7 +25,7 @@ export class DashboardService {
   widgets = signal<Widget[]>([
   {
     id: 1,
-    label: 'Bar Chart',
+    label: 'Personel Departments',
     content: BarComponent,
     rows: 2,
     columns: 2,
@@ -54,8 +60,8 @@ export class DashboardService {
   },
   {
     id: 6,
-    label: 'Pie Chart',
-    content: PieComponent,
+    label: 'Personel Departments',
+    content: PersonelDepartmentsComponent,
     rows: 2,
     columns: 2,
   },
@@ -73,6 +79,20 @@ export class DashboardService {
     rows: 1,
     columns: 1,
   },
+  {
+    id: 9,
+    label: 'Personel Test',
+    content: PersonelTestComponent,
+    rows: 2,
+    columns: 2,
+  },
+  {
+    id: 10,
+    label: 'Genders',
+    content: GendersByDeparmentComponent,
+    rows: 2,
+    columns: 2,
+  }
 ]);
 
   addedWidgets = signal<Widget[]>([ ]);
@@ -119,9 +139,6 @@ export class DashboardService {
       newWidgets[index] = { ...newWidgets[index], ...widget}
       
       this.addedWidgets.set(newWidgets);
-      
-
-
     }
   }
 

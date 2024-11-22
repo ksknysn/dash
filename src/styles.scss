@@ -12,60 +12,13 @@ $custom-theme: mat.define-theme(
     )
 );
 
-            
-html {
-    --primary: red;
-    --sys-primary: rgb(76 102 43);
-    --sys-surface-tint: rgb(76 102 43);
-    --sys-on-primary: rgb(255 255 255);
-    --sys-primary-container: rgb(205 237 163);
-    --sys-on-primary-container: rgb(16 32 0);
-    --sys-secondary: rgb(88 98 73);
-    --sys-on-secondary: rgb(255 255 255);
-    --sys-secondary-container: rgb(220 231 200);
-    --sys-on-secondary-container: rgb(21 30 11);
-    --sys-tertiary: rgb(56 102 99);
-    --sys-on-tertiary: rgb(255 255 255);
-    --sys-tertiary-container: rgb(188 236 231);
-    --sys-on-tertiary-container: rgb(0 32 30);
-    --sys-error: rgb(186 26 26);
-    --sys-on-error: rgb(255 255 255);
-    --sys-error-container: rgb(255 218 214);
-    --sys-on-error-container: rgb(65 0 2);
-    --sys-background: rgb(249 250 239);
-    --sys-on-background: rgb(26 28 22);
-    --sys-surface: rgb(249 250 239);
-    --sys-on-surface: rgb(26 28 22);
-    --sys-surface-variant: rgb(225 228 213);
-    --sys-on-surface-variant: rgb(68 72 61);
-    --sys-outline: rgb(117 121 108);
-    --sys-outline-variant: rgb(197 200 186);
-    --sys-shadow: rgb(0 0 0);
-    --sys-scrim: rgb(0 0 0);
-    --sys-inverse-surface: rgb(47 49 42);
-    --sys-inverse-on-surface: rgb(241 242 230);
-    --sys-inverse-primary: rgb(177 209 138);
-    --sys-primary-fixed: rgb(205 237 163);
-    --sys-on-primary-fixed: rgb(16 32 0);
-    --sys-primary-fixed-dim: rgb(177 209 138);
-    --sys-on-primary-fixed-variant: rgb(53 78 22);
-    --sys-secondary-fixed: rgb(220 231 200);
-    --sys-on-secondary-fixed: rgb(21 30 11);
-    --sys-secondary-fixed-dim: rgb(191 203 173);
-    --sys-on-secondary-fixed-variant: rgb(64 74 51);
-    --sys-tertiary-fixed: rgb(188 236 231);
-    --sys-on-tertiary-fixed: rgb(0 32 30);
-    --sys-tertiary-fixed-dim: rgb(160 208 203);
-    --sys-on-tertiary-fixed-variant: rgb(31 78 75);
-    --sys-surface-dim: rgb(218 219 208);
-    --sys-surface-bright: rgb(249 250 239);
-    --sys-surface-container-lowest: rgb(255 255 255);
-    --sys-surface-container-low: rgb(243 244 233);
-    --sys-surface-container: rgb(238 239 227);
-    --sys-surface-container-high: rgb(232 233 222);
-    --sys-surface-container-highest: rgb(226 227 216);
-  }
-  
+body {
+    background: var(--sys-surface);
+    color: var(--sys-on-surface);
+}
+
+
+
 .greenlight {
     --sys-primary: rgb(76 102 43);
     --sys-surface-tint: rgb(76 102 43);
@@ -290,6 +243,8 @@ html{
     @include mat.button-toggle-theme($custom-theme);
     @include mat.menu-theme($custom-theme);
     @include mat.divider-theme($custom-theme);
+    @include mat.all-component-themes($custom-theme);
+
 }
 
 

@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
 import * as d3 from 'd3'
-import { BarData } from '../../../../services/bar-data';
+import { BarData } from '../../../../services/bar/bar-data';
 import {MatButtonModule} from '@angular/material/button';
 
 
@@ -10,9 +10,7 @@ import {MatButtonModule} from '@angular/material/button';
   imports: [MatButtonModule],
   template: `
   <!-- Add 2 buttons -->
-    <button mat-stroked-button color="accent" (click)="loadData('var1')">Male</button>
-    <button (click)="loadData('var1')" mat-raised-button color="accent">Male</button>
-
+    <button mat-stroked-button (click)="loadData('var1')">Male</button>
     <button mat-stroked-button (click)="loadData('var2')">Female</button>
     <div class="chart-container">
       <div #containerBarChart></div>
@@ -49,7 +47,7 @@ export class BarComponent implements AfterViewInit {
         .then((data) => {
           // Map the data to match the BarData interface
           this.chartData = data.map(d => ({
-            group: d['group'],
+            label: d['group'],
             value: +d[selectedVar] // Convert the value to a number
           }))
           this.setup();
@@ -98,7 +96,7 @@ export class BarComponent implements AfterViewInit {
   }
 
   private handleBarClick(data: BarData): void {
-    alert(`Group: ${data.group}, Value: ${data.value}`);
+    alert(`Group: ${data.label}, Value: ${data.value}`);
   }
   
 
@@ -133,7 +131,7 @@ export class BarComponent implements AfterViewInit {
     .attr("class", "y");
 
 
-    x.domain(this.chartData.map(d => d.group));
+    x.domain(this.chartData.map(d => d.label));
     xAxis.transition().duration(1000).call(d3.axisBottom(x));
 
     // Add Y axis
@@ -152,7 +150,7 @@ export class BarComponent implements AfterViewInit {
     .transition()
     .duration(1000)
       .attr("x", d => {
-        const xValue = x(d.group);
+        const xValue = x(d.label);
         return xValue !== undefined ? xValue : 0; // Provide a fallback value if undefined
       })
       

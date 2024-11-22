@@ -1,4 +1,4 @@
 export interface BarData {
-    group: string;
+    label: string;
     value: number;
 }

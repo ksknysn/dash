@@ -64,7 +64,9 @@ import { HeaderComponent } from './components/header/header.component';
   `],
 })
 export class AppComponent {
+  title="dash";
   collapsed = signal(false);
 
   sidenavWidth = computed(() => this.collapsed() ? '65px' : '250px');
+  
 }

@@ -65,7 +65,7 @@ import { DashboardService } from '../../../services/dashboard.service';
       left: 0;
       width: 100%;
       height: 100%;
-
+      border-radius: inherit;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -78,7 +78,14 @@ import { DashboardService } from '../../../services/dashboard.service';
         gap: 8px;
         align-items: center;
         margin-bottom: 8px;
+        mat-button-toggle-group,
+        mat-button-toggle {
+          border: 1px solid var(--sys-on-surface, #555);
+        }
       }
+    }
+    .mat-button-toggle-group{
+      divider-color: black;
     }
 
     .close-button{

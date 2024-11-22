@@ -1,20 +1,20 @@
 import { Component, inject, input, signal } from '@angular/core';
-import { Widget } from '../../models/dashboard';
+
 import { NgComponentOutlet, NgIf } from '@angular/common';
 import { MatButtonModule } from '@angular/material/button';
-import { MatIcon } from '@angular/material/icon';
+import { MatIcon, MatIconModule } from '@angular/material/icon';
 import { WidgetOptionsComponent } from "./widget-options/widget-options.component";
 import { DashboardService } from '../../services/dashboard.service';
 import { CdkDrag, CdkDragPlaceholder, CdkDragPreview, CdkDropList, CdkDropListGroup } from '@angular/cdk/drag-drop';
 import { WidgetHeaderComponent } from "./widget-header/widget-header.component";
+import { Widget } from '../../models/dashboard';
 
 @Component({
   selector: 'app-widget',
   standalone: true,
-  imports: [NgComponentOutlet, MatButtonModule, MatIcon, WidgetOptionsComponent, 
+  imports: [NgComponentOutlet, MatButtonModule, MatIconModule, WidgetOptionsComponent, 
     CdkDrag, CdkDragPlaceholder, WidgetHeaderComponent, CdkDragPreview, NgIf],
     template: `
-    <!--[style.background-color]="data().backgroundColor ?? 'var(--sys-surface-bright)'"-->
     <div mat-card
       class="container mat-elevation-z3" 
       [style.background-color]="data().backgroundColor ?? 'var(--sys-primary-container)'"

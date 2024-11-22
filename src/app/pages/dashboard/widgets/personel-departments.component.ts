@@ -1,7 +1,6 @@
 import { AfterViewInit, Component, ElementRef, ViewChild } from '@angular/core';
-import { Data } from '@angular/router';
 import * as d3 from 'd3'
-import { PieData } from '../../../services/pie-data';
+import { PieData } from '../../../services/pie/pie-data';
 
 @Component({
   selector: 'app-pie',
@@ -23,7 +22,7 @@ import { PieData } from '../../../services/pie-data';
     
     `
 })
-export class PieComponent implements AfterViewInit {
+export class PersonelDepartmentsComponent implements AfterViewInit {
 
   @ViewChild('containerPieChart', { static: true }) element!: ElementRef;
   private host!: d3.Selection<HTMLElement, unknown, null, undefined>;
@@ -39,11 +38,11 @@ export class PieComponent implements AfterViewInit {
 
   
   data: PieData[] = [
-    { label: '1', value: 30 },
-    { label: '2', value: 50 },
-    { label: '3', value: 40 },
-    { label: '5', value: 70 }
-
+    { label: 'IT', value: 30 },
+    { label: 'HR', value: 50 },
+    { label: 'Sales', value: 40 },
+    { label: 'Production', value: 70 },
+    { label: 'Purchasing', value: 50 }
   ];
 
   constructor(){}
@@ -80,7 +79,8 @@ export class PieComponent implements AfterViewInit {
     // Get the width and height of the parent container dynamically
     const width = container.clientWidth;
     const height = container.clientHeight;
-
+    
+    console.log("normal:",width, height);
 
   
     // console.log("Container dimensions:", { width: container.clientWidth, height: container.clientHeight });

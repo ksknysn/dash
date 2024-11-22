@@ -40,7 +40,6 @@ body{
     @include mat.all-component-themes($lightviolettheme);
     @include mat.button-theme($lightviolettheme);
     @include mat.icon-button-theme($lightviolettheme);
-
 }
 .containerViolet{
     color:mat.get-theme-color($lightviolettheme, primary, 10);

@@ -1,7 +1,7 @@
 import { Component, computed, Input, signal } from '@angular/core';
 import {MatListModule} from '@angular/material/list';
 import {MatIconModule} from '@angular/material/icon';
-import { CommonModule, NgFor, NgIf } from '@angular/common';
+import { CommonModule, NgFor, NgForOf, NgIf } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { MenuItemComponent } from '../menu-item/menu-item.component';
 
@@ -34,6 +34,7 @@ export type MenuItem = {
     .sidenav-header{
       padding-top: 24px;
       text-align: center;
+      
     }
     .hide-header-text{
       opacity: 0;
