@@ -1,8 +1,8 @@
 import { Component, inject, input, model, signal } from '@angular/core';
 import { MatIcon } from '@angular/material/icon';
 import { Widget } from '../../../models/dashboard';
-import { DashboardService } from '../../../services/dashboard.service';
 import { MatButtonModule } from '@angular/material/button';
+import { SettingsIconService } from '../../../services/settings-icon/settings-icon.service';
 
 @Component({
   selector: 'app-widget-header',
@@ -14,9 +14,11 @@ import { MatButtonModule } from '@angular/material/button';
         [style.--mdc-icon-button-icon-color]="data().color ?? 'inherit'"
       >
         <h3 class="m-0">{{ data().label}}</h3>
-        <button mat-icon-button (click)="showOptions.set(true)">
-          <mat-icon>settings</mat-icon>
-        </button>
+        @if (editable.sharedSignal()) {
+          <button mat-icon-button (click)="showOptions.set(true)">
+            <mat-icon>settings</mat-icon>
+          </button>
+        }
       </div>
   `,
   styles: `
@@ -36,6 +38,13 @@ import { MatButtonModule } from '@angular/material/button';
     `
 })
 export class WidgetHeaderComponent {
+  /**
+   *
+   */
+  constructor(public editable: SettingsIconService) {
+    
+  }
+
   data = input.required<Widget>();
   
   showOptions = model.required<boolean>();

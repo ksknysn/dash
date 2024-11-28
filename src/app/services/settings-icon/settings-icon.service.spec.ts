@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 
-import { TwoDimChartService } from './two-dim-chart.service';
+import { SettingsIconService } from './settings-icon.service';
 
-describe('TwoDimChartService', () => {
-  let service: TwoDimChartService;
+describe('SettingsIconService', () => {
+  let service: SettingsIconService;
 
   beforeEach(() => {
     TestBed.configureTestingModule({});
-    service = TestBed.inject(TwoDimChartService);
+    service = TestBed.inject(SettingsIconService);
   });
 
   it('should be created', () => {

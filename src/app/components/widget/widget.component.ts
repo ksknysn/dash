@@ -12,7 +12,7 @@ import { Widget } from '../../models/dashboard';
 @Component({
   selector: 'app-widget',
   standalone: true,
-  imports: [NgComponentOutlet, MatButtonModule, MatIconModule, WidgetOptionsComponent, 
+  imports: [NgComponentOutlet, MatButtonModule, MatIconModule, WidgetOptionsComponent,
     CdkDrag, CdkDragPlaceholder, WidgetHeaderComponent, CdkDragPreview, NgIf],
     template: `
     <div mat-card
@@ -25,10 +25,10 @@ import { Widget } from '../../models/dashboard';
       <app-widget-header [data]="data()" [(showOptions)]="showOptions" />
 
       <!-- Widget Content -->
-      <ng-container *ngIf="!showOptions(); else optionsContent">
+      <ng-container class="ct5" *ngIf="!showOptions(); else optionsContent">
         <ng-container [ngComponentOutlet]="data().content"></ng-container>
       </ng-container>
-
+      
       <!-- Widget Options -->
       <ng-template #optionsContent>
         <app-widget-options [data]="data()" [(showOptions)]="showOptions" />
@@ -37,6 +37,7 @@ import { Widget } from '../../models/dashboard';
       @if(showOptions()){
         <app-widget-options [data]="data()" [(showOptions)]="showOptions" />
       }
+
       <div *cdkDragPlaceholder></div>
     </div>
   `,
@@ -50,6 +51,7 @@ import { Widget } from '../../models/dashboard';
       height: 100%;
       width: 100%;
       padding: 32px;
+      padding-top: 24px;
       box-sizing: border-box;
       border-radius: inherit;
       overflow: hidden;
@@ -58,13 +60,10 @@ import { Widget } from '../../models/dashboard';
   host: {
     '[style.grid-area]': 
       '"span " + (data().rows ?? 1) + "/ span " + (data().columns ?? 1)'
-
   }
 })
 export class WidgetComponent {
   data = input.required<Widget>();
-  
   store = inject(DashboardService);
-
   showOptions = signal(false);
 }

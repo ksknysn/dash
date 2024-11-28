@@ -20,7 +20,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
     <span class="spacer"></span> <!-- Aradaki boşluğu sağlamak için -->
 
     <!-- Green Theme Button -->
-    {{qty}}
+    <!-- {{qty}} -->
     <svg class="circleBlue" height="30" width="30" (click)="toggleTheme('blue')">
         <circle cx="15" cy="15" r="10" fill="blue" />
     </svg>
@@ -31,9 +31,9 @@ import { OverlayContainer } from '@angular/cdk/overlay';
     
     <button class="mode" mat-icon-button (click)="changeMode()">
       @if(darkMode()){
-        <mat-icon>light_mode</mat-icon>
-      } @else{
         <mat-icon>dark_mode</mat-icon>
+      } @else{
+        <mat-icon>light_mode</mat-icon>
       }
 
     </button>
@@ -65,7 +65,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
 })
 export class HeaderComponent {
   
-  qty = effect(() => console.log(this.activeTheme()));
+  qty = effect(() => this.activeTheme());
   
   /**
    *

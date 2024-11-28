@@ -1,35 +1,26 @@
 import { computed, effect, Injectable, signal } from '@angular/core';
-import { SubscribersComponent } from '../pages/dashboard/widgets/subscribers.component';
-
-import { ViewsComponent } from '../pages/dashboard/widgets/views.component';
-import { WatchTimeComponent } from '../pages/dashboard/widgets/watch-time.component';
-import { MaleComponent } from '../pages/dashboard/widgets/male.component';
-import { AnalyticsComponent } from '../pages/dashboard/widgets/analytics.component';
-import { PersonelDepartmentsComponent } from '../pages/dashboard/widgets/personel-departments.component';
-import { BarComponent } from '../pages/dashboard/widgets/bar/bar.component';
-import { TotalComponent } from '../pages/dashboard/widgets/total.component';
-import { PersonelTestComponent } from '../pages/dashboard/widgets/personel-test/personel-test.component';
-
-
-import { GendersByDeparmentComponent } from '../pages/dashboard/widgets/genders-by-deparment/genders-by-deparment.component';
+import { SubscribersComponent } from '../pages/dashboard/widgets/cards/subscribers.component';
+import { ViewsComponent } from '../pages/dashboard/widgets/cards/views.component';
+import { WatchTimeComponent } from '../pages/dashboard/widgets/cards/watch-time.component';
+import { MaleComponent } from '../pages/dashboard/widgets/cards/male.component';
+import { ProductsComponent } from '../pages/dashboard/widgets/products/products.component';
+import { TotalComponent } from '../pages/dashboard/widgets/cards/total.component';
 import { Widget } from '../models/dashboard';
-
-
+import { ReadChartTypeComponent } from '../pages/dashboard/widgets/read-chart-type/read-chart-type.component';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class DashboardService {
-  
 
   widgets = signal<Widget[]>([
   {
     id: 1,
-    label: 'Personel Departments',
-    content: BarComponent,
-    rows: 2,
-    columns: 2,
+    label: 'Products by Category',
+    content: ProductsComponent,
+    rows: 3,
+    columns: 2
   },
   {
     id: 2,
@@ -54,43 +45,22 @@ export class DashboardService {
   },
   {
     id: 5,
-    label: 'Analytics',
-    content: AnalyticsComponent,
-    rows: 2,
-    columns: 2
-  },
-  {
-    id: 6,
-    label: 'Personel Departments',
-    content: PersonelDepartmentsComponent,
-    rows: 2,
-    columns: 2,
-  },
-  {
-    id: 7,
     label: 'Subscribers',
     content: SubscribersComponent,
     rows: 1,
     columns: 1,
   },
   {
-    id: 8,
+    id: 6,
     label: 'Total',
     content: TotalComponent,
     rows: 1,
     columns: 1,
   },
   {
-    id: 9,
-    label: 'Personel Counts',
-    content: PersonelTestComponent,
-    rows: 2,
-    columns: 2,
-  },
-  {
-    id: 10,
-    label: 'Genders',
-    content: GendersByDeparmentComponent,
+    id: 7,
+    label: 'Persons by Department',
+    content: ReadChartTypeComponent,
     rows: 2,
     columns: 2,
   }
@@ -102,8 +72,6 @@ export class DashboardService {
     const addedIds = this.addedWidgets().map((w) => w.id);
     return this.widgets().filter((w) => !addedIds.includes(w.id));
   });
-
-
 
   addWidget(w: Widget){
     this.addedWidgets.set([...this.addedWidgets(), {...w}]);
@@ -197,7 +165,7 @@ export class DashboardService {
     });
     localStorage.setItem('dashboardWidgets', JSON.stringify(widgetsWithoutContent));
   });
-  
+    
 
-  
+  editable = signal('false');
 }
