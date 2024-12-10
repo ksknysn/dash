@@ -46,6 +46,7 @@ export class CustomSidenavComponent {
 
   sideNavCollapsed = signal(false);
   
+
   @Input() set collapsed(val: boolean){
     this.sideNavCollapsed.set(val);
   }

@@ -1,4 +1,4 @@
-import { Component, computed, effect, HostBinding, model, Renderer2, signal } from '@angular/core';
+import { AfterViewInit, Component, computed, effect, HostBinding, model, Renderer2, signal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIcon } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
@@ -29,7 +29,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
     <circle cx="15" cy="15" r="10" fill="green" />
   </svg>
     
-    <button class="mode" mat-icon-button (click)="changeMode()">
+    <button class="mode" mat-icon-button (click)="darkMode.set(!darkMode())">
       @if(darkMode()){
         <mat-icon>dark_mode</mat-icon>
       } @else{
@@ -61,44 +61,69 @@ import { OverlayContainer } from '@angular/cdk/overlay';
     .circleGreen:hover {
       opacity: 0.8; /* Hover efekti için */
     }
-  `
+    `
 })
-export class HeaderComponent {
+export class HeaderComponent implements AfterViewInit {
   
+  
+  activeTheme = signal<string>(
+    localStorage.getItem('theme') || 'green' // Convert string to boolean
+  );
+  darkMode = signal<boolean>(
+    localStorage.getItem('darkmode') === 'true' // Convert string to boolean
+  );
   
   qty = effect(() => this.activeTheme());
+  
   
   /**
    *
    */
   constructor(private renderer: Renderer2) {
-    this.toggleTheme('green');
-    //this.renderer.addClass(document.body, "redtheme");
+    //this.toggleTheme('green');
+    
+    effect(() => {
+      this.darkMode();
+      localStorage.setItem('darkmode', this.darkMode().toString() || 'true');
+      
+    })
+
+    effect(() => {
+      
+      this.toggleTheme(this.activeTheme());
+    })
+
+    
+  }
+  ngAfterViewInit(): void {
+    console.log("aktif:", this.activeTheme());
+    this.toggleTheme(this.activeTheme());
   }
   
   
   // Aktif tema sinyali
-  activeTheme = signal<string | null>(null);
 
   
   
-  //change light to dark or dark to light mode
-  changeMode(){
-    const currentTheme = this.activeTheme();
-    const body = document.body;
-    this.darkMode.set(!this.darkMode());
-    if (currentTheme) {
-      this.renderer.removeClass(body, currentTheme);
-      if(this.darkMode()){
-        this.renderer.removeClass(body, currentTheme+'light');
-        this.renderer.addClass(body, currentTheme+'dark');
-      }
-      else{
-        this.renderer.removeClass(body, currentTheme+'dark');
-        this.renderer.addClass(body, currentTheme+'light');
-      }
-    }
-  }
+  // //change light to dark or dark to light mode
+  // changeMode(){
+  //   const currentTheme = this.activeTheme();
+  //   const body = document.body;
+  //   this.darkMode.set(!this.darkMode());
+  //   if (currentTheme) {
+  //     this.renderer.removeClass(body, currentTheme);
+  //     if(this.darkMode()){
+  //       this.renderer.removeClass(body, currentTheme+'light');
+  //       this.renderer.addClass(body, currentTheme+'dark');
+  //     }
+  //     else{
+  //       this.renderer.removeClass(body, currentTheme+'dark');
+  //       this.renderer.addClass(body, currentTheme+'light');
+  //     }
+  //   }
+  // }
+
+
 
   toggleTheme(theme: string){
     const currentTheme = this.activeTheme();
@@ -110,7 +135,6 @@ export class HeaderComponent {
     // Eski temayı kaldır
     if (currentTheme) {
       this.renderer.removeClass(body, currentTheme);
-    
       this.renderer.removeClass(body, currentTheme+'light');
       this.renderer.removeClass(body, currentTheme+'dark');
       
@@ -127,9 +151,9 @@ export class HeaderComponent {
         this.renderer.addClass(body, theme+'light');
         this.activeTheme.set(theme);
       }
-    } else {
-      this.activeTheme.set(null);
-    }
+    } 
+
+    localStorage.setItem('theme', this.activeTheme().toString());
 
   }
   
@@ -145,9 +169,10 @@ export class HeaderComponent {
     document.documentElement.classList.toggle('greenlight', this.greenTheme());
   })
 
-  darkMode = signal(false);
   // setDarkMode = effect(()  => {
   //   console.log("burdayım");
   //   document.documentElement.classList.toggle('bluedark', this.darkMode());
   // })
+
+  
 }

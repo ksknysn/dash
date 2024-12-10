@@ -1,41 +1,39 @@
-import { Component, OnInit } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
+import { Component } from '@angular/core';
+import { MatIcon } from '@angular/material/icon';
 import { HttpClientService } from '../../../../services/http-client.service';
 
 @Component({
-  selector: 'app-male',
+  selector: 'app-subscribers',
   standalone: true,
-  imports: [MatIconModule],
+  imports: [MatIcon],
   template: `
     <div class="mb-8">
-      <span>{{male}} </span>
+      <span>{{female}} </span>
       <mat-icon>check_circle</mat-icon>
     </div>
     <div>
-      <span class="text-green">+0</span> in the last 28 days
+      <span class="color-primary">+0</span> in the last 28 days
     </div>
   `,
   styles: ``
 })
-export class MaleComponent implements OnInit{
+export class FemalesComponent {
 
-  male = 0;
+  female = 0;
 
   constructor(private httpClientService: HttpClientService) {}
 
   ngOnInit(): void {
-    this.httpClientService.get<MaleResourcesResponse>({
+    this.httpClientService.get<FemaleResourcesResponse>({
       controller: "totalResourcesByGender"
     }).subscribe(data => {
       // API'den gelen yanıtın `total_resources` kısmına erişiyoruz
-      this.male = data.total_resources_by_gender["0"];
-
+      this.female = data.total_resources_by_gender["1"];
     });
   }
-
 }
 
-interface MaleResourcesResponse {
+interface FemaleResourcesResponse {
   total_resources_by_gender: {
     [key: string]: number; // Dinamik anahtarlar, örn. "0", "1" gibi
   };

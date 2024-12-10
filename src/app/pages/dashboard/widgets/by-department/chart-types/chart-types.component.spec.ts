@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ReadChartTypeComponent } from './read-chart-type.component';
+import { ChartTypesComponent } from './chart-types.component';
 
-describe('ReadChartTypeComponent', () => {
-  let component: ReadChartTypeComponent;
-  let fixture: ComponentFixture<ReadChartTypeComponent>;
+describe('ChartTypesComponent', () => {
+  let component: ChartTypesComponent;
+  let fixture: ComponentFixture<ChartTypesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ReadChartTypeComponent]
+      imports: [ChartTypesComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(ReadChartTypeComponent);
+    fixture = TestBed.createComponent(ChartTypesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

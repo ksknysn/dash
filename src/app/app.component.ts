@@ -6,6 +6,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { CustomSidenavComponent } from "./components/custom-sidenav/custom-sidenav.component";
 import { HeaderComponent } from './components/header/header.component';
+import { provideHttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -43,8 +44,6 @@ import { HeaderComponent } from './components/header/header.component';
       position: relative;
       z-index: 5;
       min-height: 750px;
-      
-      
     }
 
     mat-drawer {
@@ -59,14 +58,10 @@ import { HeaderComponent } from './components/header/header.component';
       transition: margin 500ms ease-in-out; /* Animasyon için */
       padding: 3%;
     }
-
-
   `],
 })
 export class AppComponent {
   title="dash";
   collapsed = signal(false);
-
   sidenavWidth = computed(() => this.collapsed() ? '65px' : '250px');
-  
 }

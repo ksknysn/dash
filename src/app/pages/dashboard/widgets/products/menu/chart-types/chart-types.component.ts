@@ -12,6 +12,9 @@ import { MatIconModule } from '@angular/material/icon';
       <span class="material-symbols-outlined" class="footer-icon" (click)="chartTipGender.set('pie_chart')">
         <mat-icon>pie_chart</mat-icon>
       </span>
+      <span class="material-symbols-outlined" class="footer-icon" (click)="chartTipGender.set('donut_chart')">
+        <mat-icon>donut_large</mat-icon>
+      </span>
   `,
   styles: `
   `

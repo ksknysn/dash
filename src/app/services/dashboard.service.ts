@@ -1,12 +1,25 @@
 import { computed, effect, Injectable, signal } from '@angular/core';
-import { SubscribersComponent } from '../pages/dashboard/widgets/cards/subscribers.component';
+import { FemalesComponent } from '../pages/dashboard/widgets/cards/females.component';
 import { ViewsComponent } from '../pages/dashboard/widgets/cards/views.component';
 import { WatchTimeComponent } from '../pages/dashboard/widgets/cards/watch-time.component';
 import { MaleComponent } from '../pages/dashboard/widgets/cards/male.component';
 import { ProductsComponent } from '../pages/dashboard/widgets/products/products.component';
 import { TotalComponent } from '../pages/dashboard/widgets/cards/total.component';
 import { Widget } from '../models/dashboard';
-import { ReadChartTypeComponent } from '../pages/dashboard/widgets/read-chart-type/read-chart-type.component';
+import { PersonsComponent } from '../pages/dashboard/widgets/persons/persons.component';
+import { ByCountryComponent } from '../pages/dashboard/widgets/byCountry/by-country.component';
+import { ByStateComponent } from '../pages/dashboard/widgets/by-state/by-state.component';
+import { ByDepartmentComponent } from '../pages/dashboard/widgets/by-department/by-department.component';
+import { ByZipCodeComponent } from '../pages/dashboard/widgets/by-zip-code/by-zip-code.component';
+import { ByEmployeeTypeComponent } from '../pages/dashboard/widgets/by-employee-type/by-employee-type.component';
+import { ByEmploymentStatusComponent } from '../pages/dashboard/widgets/by-employment-status/by-employment-status.component';
+import { ByCitizenshipStatusComponent } from '../pages/dashboard/widgets/by-citizenship-status/by-citizenship-status.component';
+import { BySalaryRangeComponent } from '../pages/dashboard/widgets/by-salary-range/by-salary-range.component';
+import { ByPositionComponent } from '../pages/dashboard/widgets/by-position/by-position.component';
+import { ByAgeGroupComponent } from '../pages/dashboard/widgets/by-age-group/by-age-group.component';
+import { ByMaritalStatusComponent } from '../pages/dashboard/widgets/by-marital-status/by-marital-status.component';
+import { ByRaceDescComponent } from '../pages/dashboard/widgets/by-race-desc/by-race-desc.component';
+import { ByPerformanceScoreComponent } from '../pages/dashboard/widgets/by-performance-score/by-performance-score.component';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +30,7 @@ export class DashboardService {
   widgets = signal<Widget[]>([
   {
     id: 1,
-    label: 'Products by Category',
+    label: 'Customers by Location',
     content: ProductsComponent,
     rows: 3,
     columns: 2
@@ -45,8 +58,8 @@ export class DashboardService {
   },
   {
     id: 5,
-    label: 'Subscribers',
-    content: SubscribersComponent,
+    label: 'Females',
+    content: FemalesComponent,
     rows: 1,
     columns: 1,
   },
@@ -59,12 +72,103 @@ export class DashboardService {
   },
   {
     id: 7,
-    label: 'Persons by Department',
-    content: ReadChartTypeComponent,
+    label: 'By Department',
+    content: PersonsComponent,
+    rows: 2,
+    columns: 2,
+  },
+  {
+    id: 8,
+    label: 'By Country',
+    content: ByCountryComponent,
+    rows: 2,
+    columns: 2,
+  },
+  {
+    id: 9,
+    label: 'By State',
+    content: ByStateComponent,
+    rows: 2,
+    columns: 2,
+  },
+  {
+    id: 10,
+    label: 'By Department',
+    content: ByDepartmentComponent,
+    rows: 2,
+    columns: 2,
+  },
+  {
+    id: 11,
+    label: 'By Zip Code',
+    content: ByZipCodeComponent,
+    rows: 2,
+    columns: 2,
+  },
+  {
+    id: 12,
+    label: 'By Employee Type',
+    content: ByEmployeeTypeComponent,
+    rows: 2,
+    columns: 2,
+  },
+  {
+    id: 13,
+    label: 'By Employment Status',
+    content: ByEmploymentStatusComponent,
+    rows: 2,
+    columns: 2,
+  },
+  {
+    id: 14,
+    label: 'By Citizenship Status',
+    content: ByCitizenshipStatusComponent,
+    rows: 2,
+    columns: 2,
+  },
+  {
+    id: 15,
+    label: 'By Salary Range',
+    content: BySalaryRangeComponent,
+    rows: 2,
+    columns: 2,
+  },
+  {
+    id: 16,
+    label: 'By Position',
+    content: ByPositionComponent,
+    rows: 2,
+    columns: 2,
+  },
+  {
+    id: 17,
+    label: 'By Age Group',
+    content: ByAgeGroupComponent,
+    rows: 2,
+    columns: 2,
+  },
+  {
+    id: 18,
+    label: 'By Marital Status',
+    content: ByMaritalStatusComponent,
+    rows: 2,
+    columns: 2,
+  },
+  {
+    id: 19,
+    label: 'By Race Description',
+    content: ByRaceDescComponent,
+    rows: 2,
+    columns: 2,
+  },
+  {
+    id: 20,
+    label: 'By Performance Score',
+    content: ByPerformanceScoreComponent,
     rows: 2,
     columns: 2,
   }
-]);
+  ]);
 
   addedWidgets = signal<Widget[]>([ ]);
 
@@ -165,7 +269,6 @@ export class DashboardService {
     });
     localStorage.setItem('dashboardWidgets', JSON.stringify(widgetsWithoutContent));
   });
-    
 
   editable = signal('false');
 }

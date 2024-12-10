@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SubscribersComponent } from './subscribers.component';
+import { ByZipCodeComponent } from './by-zip-code.component';
 
-describe('SubscribersComponent', () => {
-  let component: SubscribersComponent;
-  let fixture: ComponentFixture<SubscribersComponent>;
+describe('ByZipCodeComponent', () => {
+  let component: ByZipCodeComponent;
+  let fixture: ComponentFixture<ByZipCodeComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SubscribersComponent]
+      imports: [ByZipCodeComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(SubscribersComponent);
+    fixture = TestBed.createComponent(ByZipCodeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

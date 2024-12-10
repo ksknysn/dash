@@ -6,6 +6,7 @@ import { BarChartService } from '../../../../services/bar/bar-chart.service';
 import { MenuComponent } from './menu/menu/menu.component';
 import { PieChartService } from '../../../../services/pie/pie-chart.service';
 import { ChartTypesComponent2 } from './menu/chart-types/chart-types.component';
+import { PieCleanChartService } from '../../../../services/pie-clean/pie-clean-chart.service';
 
 @Component({
   selector: 'app-bar',
@@ -19,7 +20,7 @@ import { ChartTypesComponent2 } from './menu/chart-types/chart-types.component';
       <div #containerBarChart></div>
     </div>
     
-    <app-chart-types2 class="tips" [(chartTipGender)]="chartTypeGender"></app-chart-types2>
+    <app-chart-types2 class="tips" [(chartTipGender)]="chartType"></app-chart-types2>
 
   `,
   styles: `
@@ -44,15 +45,31 @@ import { ChartTypesComponent2 } from './menu/chart-types/chart-types.component';
 })
 export class ProductsComponent implements AfterViewInit {
   
-  chartTypeGender = signal('bar_chart');
-  gender = signal('var1');
+  
+  chartType = signal<string>(
+    localStorage.getItem('productscomponentChartType') || 'bar_chart'
+  );
+  
+  gender = signal<string>(
+    localStorage.getItem('personscomponentGender') || 'var1'
+  );
 
-  constructor(private piechartService: PieChartService, private barChartService: BarChartService) {
+  constructor(
+    private cleanpiechartService: PieCleanChartService,
+    private piechartService: PieChartService, 
+    private barChartService: BarChartService) {
 
     effect(() => {
       //this.drawChart(this.chartType().toString());
-      this.chartTypeGender(),
-      this.drawChart(this.gender().toString());
+      this.chartType(),
+      this.gender(),
+      this.drawChart();
+
+      //Store to local
+      localStorage.setItem('productscomponentChartType', this.chartType() || 'bar_chart');
+      localStorage.setItem('productscomponentGender', this.gender() || 'var1');
+
+
     });
   }
 
@@ -61,21 +78,24 @@ export class ProductsComponent implements AfterViewInit {
   
   
 
-  async drawChart(selectedVar: string){
+  async drawChart(){
         // Load the CSV data and assign it to chartData
         d3.csv("https://raw.githubusercontent.com/holtzy/D3-graph-gallery/master/DATA/barplot_change_data.csv")
         .then((data) => {
           // Map the data to match the BarData interface
           this.chartData = data.map(d => ({
             label: d['group'],
-            value: +d[selectedVar] // Convert the value to a number
+            value: +d[this.gender().toString()] // Convert the value to a number
           }));
 
           setTimeout(() => {            
-            if(this.chartTypeGender() == 'bar_chart')
+            if(this.chartType() == 'bar_chart')
               this.barChartService.createChart(this.element, this.chartData, this.handleBarClick);
-            else if(this.chartTypeGender() == 'pie_chart')
+            else if(this.chartType() == 'pie_chart')
               this.piechartService.createChart(this.element, this.chartData, this.handleBarClick);
+            else if(this.chartType() == "donut_chart"){
+              this.cleanpiechartService.createChart  (this.element, this.chartData, this.handleBarClick);
+            }
           }, 100);
             
         })
@@ -86,7 +106,7 @@ export class ProductsComponent implements AfterViewInit {
 
   ngAfterViewInit(){
     setTimeout(() => {
-      this.drawChart('var1');
+      this.drawChart();
     }, 300);
   }
 

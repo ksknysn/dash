@@ -29,7 +29,7 @@ import { OverlayContainer } from '@angular/cdk/overlay';
     <circle cx="15" cy="15" r="10" fill="green" />
   </svg>
     
-    <button class="mode" mat-icon-button (click)="changeMode()">
+    <button class="mode" mat-icon-button (click)="darkMode.set(!darkMode())">
       @if(darkMode()){
         <mat-icon>dark_mode</mat-icon>
       } @else{
@@ -61,12 +61,21 @@ import { OverlayContainer } from '@angular/cdk/overlay';
     .circleGreen:hover {
       opacity: 0.8; /* Hover efekti için */
     }
-  `
+    `
 })
 export class HeaderComponent {
   
   
+  activeTheme = signal<string>(
+    localStorage.getItem('theme') || 'blue' // Convert string to boolean
+  );
+  darkMode = signal<boolean>(
+    localStorage.getItem('darkmode') === 'true' // Convert string to boolean
+  );
+  
+  previousTheme = computed(() => this.activeTheme());
   qty = effect(() => this.activeTheme());
+  
   
   /**
    *
@@ -74,31 +83,43 @@ export class HeaderComponent {
   constructor(private renderer: Renderer2) {
     this.toggleTheme('green');
     //this.renderer.addClass(document.body, "redtheme");
+    effect(() => {
+      this.darkMode();
+      localStorage.setItem('darkmode', this.darkMode().toString() || 'true');
+      
+    })
+
+    effect(() => {
+      
+      console.log(this.activeTheme(), this.previousTheme());
+      this.toggleTheme(this.activeTheme());
+    })
   }
   
   
   // Aktif tema sinyali
-  activeTheme = signal<string | null>(null);
 
   
   
-  //change light to dark or dark to light mode
-  changeMode(){
-    const currentTheme = this.activeTheme();
-    const body = document.body;
-    this.darkMode.set(!this.darkMode());
-    if (currentTheme) {
-      this.renderer.removeClass(body, currentTheme);
-      if(this.darkMode()){
-        this.renderer.removeClass(body, currentTheme+'light');
-        this.renderer.addClass(body, currentTheme+'dark');
-      }
-      else{
-        this.renderer.removeClass(body, currentTheme+'dark');
-        this.renderer.addClass(body, currentTheme+'light');
-      }
-    }
-  }
+  // //change light to dark or dark to light mode
+  // changeMode(){
+  //   const currentTheme = this.activeTheme();
+  //   const body = document.body;
+  //   this.darkMode.set(!this.darkMode());
+  //   if (currentTheme) {
+  //     this.renderer.removeClass(body, currentTheme);
+  //     if(this.darkMode()){
+  //       this.renderer.removeClass(body, currentTheme+'light');
+  //       this.renderer.addClass(body, currentTheme+'dark');
+  //     }
+  //     else{
+  //       this.renderer.removeClass(body, currentTheme+'dark');
+  //       this.renderer.addClass(body, currentTheme+'light');
+  //     }
+  //   }
+  // }
+
+
 
   toggleTheme(theme: string){
     const currentTheme = this.activeTheme();
@@ -127,9 +148,7 @@ export class HeaderComponent {
         this.renderer.addClass(body, theme+'light');
         this.activeTheme.set(theme);
       }
-    } else {
-      this.activeTheme.set(null);
-    }
+    } 
 
   }
   
@@ -145,7 +164,6 @@ export class HeaderComponent {
     document.documentElement.classList.toggle('greenlight', this.greenTheme());
   })
 
-  darkMode = signal(false);
   // setDarkMode = effect(()  => {
   //   console.log("burdayım");
   //   document.documentElement.classList.toggle('bluedark', this.darkMode());

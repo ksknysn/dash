@@ -1,10 +1,10 @@
-import { AfterViewInit, Component, effect, ElementRef, HostListener, Injector, input, model, signal, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, effect, ElementRef, HostListener, OnInit, signal, ViewChild } from '@angular/core';
 import { ChartTypesComponent } from "./chart-types/chart-types.component";
 import { TwoDimData } from '../../../../models/TwoDimData';
 import { BarChartService } from '../../../../services/bar/bar-chart.service';
 import { PieChartService } from '../../../../services/pie/pie-chart.service';
-import * as d3 from 'd3';
-
+import { HttpClientService } from '../../../../services/http-client.service';
+import { PieCleanChartService } from '../../../../services/pie-clean/pie-clean-chart.service';
 
 @Component({
   selector: 'app-read-chart-type',
@@ -12,7 +12,7 @@ import * as d3 from 'd3';
   imports: [ChartTypesComponent],
   template: `
     <div class="chart-container">
-      <div #containerPieChart></div>
+      <div #chartContainer></div>
     </div>
     
     <app-chart-types class="tips" [(chartTip)]="chartType"></app-chart-types>
@@ -32,18 +32,34 @@ import * as d3 from 'd3';
     }
   `
 })
-export class ReadChartTypeComponent implements AfterViewInit {
+export class PersonsComponent implements AfterViewInit, OnInit {
 
-  chartType = signal('bar_chart');
+  
+  
+  chartType = signal<string>(
+    localStorage.getItem('personscomponent') || 'bar_chart'
+  );
 
-  constructor(private piechartService: PieChartService, private barchartService: BarChartService) {
 
+  constructor(
+    private cleanpicartService: PieCleanChartService,
+    private piechartService: PieChartService, 
+    private barchartService: BarChartService, 
+    private httpClientService: HttpClientService) {
+    
     effect(() => {
       this.drawChart();
+      localStorage.setItem('personscomponent', this.chartType() || 'bar_chart');  
     });
+      
+  }
+  ngOnInit(): void {
+    this.httpClientService.get({
+      controller:"totalNumberOfResources"
+    }).subscribe(data => console.log(data));
   }
   
-  @ViewChild('containerPieChart', { static: true }) element!: ElementRef;
+  @ViewChild('chartContainer', { static: true }) element!: ElementRef;
   
   data: TwoDimData[] = [
     { label: 'IT', value: 30 },
@@ -54,19 +70,16 @@ export class ReadChartTypeComponent implements AfterViewInit {
     { label: 'Tech', value: 50 },
   ];
 
-  clickFunc(){
-  
-  }
+
 
   ngAfterViewInit(): void {
-    this.chartType.set('bar_chart');
+    
     setTimeout(() => {
       this.drawChart();
     }, 350);
   }
 
   drawChart(){
-    
     if (!this.element.nativeElement) {
       console.error('Element not found!');
       return;
@@ -76,6 +89,10 @@ export class ReadChartTypeComponent implements AfterViewInit {
     }
     else if(this.chartType() == "pie_chart"){
       this.piechartService.createChart  (this.element, this.data, this.clickFunc);
+      
+    }
+    else if(this.chartType() == "donut_chart"){
+      this.cleanpicartService.createChart  (this.element, this.data, this.clickFunc);
     }
 
   }
@@ -83,5 +100,9 @@ export class ReadChartTypeComponent implements AfterViewInit {
   @HostListener('window:resize')
   onResize() {
     this.drawChart();
+  }
+
+  private clickFunc(data: TwoDimData): void {
+    alert(`Group: ${data.label}, Value: ${data.value}`);
   }
 }
